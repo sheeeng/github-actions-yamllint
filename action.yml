@@ -1,0 +1,37 @@
+---
+name: 'YAML Lint'
+description: 'Lint YAML.'
+author: 'sheeeng'
+
+inputs:
+  files_or_directory:
+    description: 'Space separated list of multiple files, a single file or a single directory.'
+    required: true
+  configuration_file:
+    description: 'Path to a custom yamllint configuration'
+    required: false
+  configuration_data:
+    description: 'Custom configuration. For example, YAML source.'
+    required: false
+  format:
+    description: 'Option for yamllint output. For example, {parsable, standard, colored, auto}.'
+    required: false
+    default: "colored"
+  strict:
+    description: 'Return non-zero exit code on warnings as well as errors.'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.files_or_directory }}
+    - ${{ inputs.configuration_file }}
+    - ${{ inputs.configuration_data }}
+    - ${{ inputs.format }}
+    - ${{ inputs.strict }}
+
+branding:
+  color: green
+  icon: check-square
